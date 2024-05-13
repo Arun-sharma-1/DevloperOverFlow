@@ -4,19 +4,26 @@ import type { Metadata } from "next";
 import { FaStackOverflow } from "react-icons/fa";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
+export const metadata: Metadata = {
+  title: "DevFlow",
+  description:
+    "A community-driven platform for asking and answering programming questions.Get help, share knowledge, and collaborate with developers from around the world.Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+  icons: {
+    icon: "/assets/images/site-logo.svg",
+  },
+};
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
 });
-export const metadata: Metadata = {
-  title: "Devoverflow",
-  description:
-    "A community-driven platform for asking and answering programming questions",
-  icons: {
-    icon: "/assets/images/site-logo.png",
-  },
-};
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-spaceGrotesk",
+});
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +32,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            elements: {
+              formButtonPrimary: "primary-gradient",
+              footerActionLink: "primary-text-gradient hover:text-primary-500",
+            },
+          }}
+        >
           <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>
       </body>
