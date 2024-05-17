@@ -4,14 +4,19 @@ import { Form, Input, Button } from "antd";
 import type { FormProps } from "antd";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
 const { TextArea } = Input;
-
-const Question = () => {
+interface props {
+  mongoUserId: string;
+}
+const Question = ({ mongoUserId }: props) => {
   type FieldType = {
     title: string;
-    explanation: string;
+    content: string;
     tags: string[];
   };
+  const router = useRouter();
+  const pathName = usePathname();
 
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -22,8 +27,16 @@ const Question = () => {
   };
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-    await createQuestion({});
-    console.log("Success:", values);
+    console.log("tags are ", values.tags);
+    await createQuestion({
+      title: values.title,
+      content: values.content,
+      tags: values.tags,
+      author: JSON.parse(mongoUserId),
+    });
+
+    //navigate to home page
+    router.push("/");
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
@@ -82,7 +95,7 @@ const Question = () => {
           <span className="text-primary-500">*</span>
         </div>
         <Form.Item
-          name="explanation"
+          name="content"
           rules={[
             {
               required: true,
@@ -113,9 +126,9 @@ const Question = () => {
             placeholder="Add tags..."
           />
         </Form.Item>
-        <div className="flex-start mt-2.5 gap-2.5">
+        <div className="flex-start flex-wrap overflow-scroll overflow-y-hidden mt-2.5 gap-2.5">
           {tags.map((tag, index) => (
-            <div key={index} className="flex items-center gap-2.5">
+            <div key={index} className="flex flex-wrap items-center gap-2.5">
               <div className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border px-4 py-2 capitalize">
                 {tag}
                 <Button
@@ -130,7 +143,7 @@ const Question = () => {
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <button
             type="submit"
-            className="primary-gradient max-h-[56px] w-[173px] !text-light-900 rounded-md px-3 py-3"
+            className="primary-gradient max-h-[56px] w-[173px] my-3 !text-light-900 rounded-md py-3"
           >
             Ask a Question
           </button>
