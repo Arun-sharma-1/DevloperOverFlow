@@ -33,6 +33,7 @@ const Question = ({ mongoUserId }: props) => {
       content: values.content,
       tags: values.tags,
       author: JSON.parse(mongoUserId),
+      path:pathName
     });
 
     //navigate to home page

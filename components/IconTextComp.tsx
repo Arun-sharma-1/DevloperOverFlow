@@ -1,4 +1,3 @@
-import { formatAndDivideNumber } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 interface props {
@@ -19,6 +18,7 @@ const IconTextComp = ({
   href,
   isAuthor,
 }: props) => {
+  console.log("value is  ", value);
   return (
     <>
       {href && (
@@ -31,7 +31,7 @@ const IconTextComp = ({
               className={`object-contain ${href ? "rounded-full" : ""}`}
             />
             <p className={`${textStyles} flex items-center gap-1`}>
-              {formatAndDivideNumber(+value)}
+              {value}
               <span
                 className={`small-regular line-clamp-1  ${isAuthor ? "max-sm:hidden" : "max-sm:hidden"} `}
               >
@@ -50,7 +50,7 @@ const IconTextComp = ({
             className={`object-contain ${href ? "rounded-full" : ""}`}
           />
           <p className={`${textStyles} flex items-center gap-1`}>
-            {formatAndDivideNumber(+value)}
+           {value}
             <span
               className={`small-regular line-clamp-1  ${isAuthor ? "max-sm:hidden" : "max-sm:hidden"} `}
             >
