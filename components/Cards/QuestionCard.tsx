@@ -54,7 +54,7 @@ const QuestionCard = ({
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <div>
           <IconTextComp
-            imgUrl="/assets/icons/au.svg"
+            imgUrl={author.picture}
             alt="avatar"
             value={author.name}
             title={`- asked ${getTimestamp(createdAt)}`}
@@ -65,7 +65,7 @@ const QuestionCard = ({
         </div>
         <div className="flex gap-2 flex-wrap">
           <IconTextComp
-            imgUrl={author.picture}
+            imgUrl="/assets/icons/like.svg"
             alt="upvotes"
             value={formatAndDivideNumber(upvotes)}
             title="votes"
