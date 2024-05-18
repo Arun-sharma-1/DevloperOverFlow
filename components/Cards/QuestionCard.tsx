@@ -65,7 +65,7 @@ const QuestionCard = ({
         </div>
         <div className="flex gap-2 flex-wrap">
           <IconTextComp
-            imgUrl="/assets/icons/like.svg"
+            imgUrl={author.picture}
             alt="upvotes"
             value={formatAndDivideNumber(upvotes)}
             title="votes"
