@@ -154,7 +154,6 @@ export default async function Home() {
   //   },
   // ];
   const res = await getQuestion({});
-  console.log('res is ' , res)
   const result:any = res?.questions || [];
 
   return (

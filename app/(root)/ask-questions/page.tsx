@@ -3,8 +3,8 @@ import { getUserById } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 const page = async () => {
-  // const { userId } = auth();
-  const userId = "clerk123";
+  const { userId } = auth();
+
   if (!userId) redirect("/sign-in");
   console.log("current user id ", userId);
 
