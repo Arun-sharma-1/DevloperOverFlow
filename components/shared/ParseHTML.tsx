@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import Prism from "prismjs";
+// import Prism from "prismjs";
 import parse from "html-react-parser";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
@@ -27,7 +27,7 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 const ParseHTML = ({ data }: { data: string }) => {
   useEffect(() => {
-    Prism.highlightAll();
+    // Prism.highlightAll();
   }, []);
   return <div>{parse(data)}</div>;
 };
