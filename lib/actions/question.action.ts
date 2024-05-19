@@ -3,7 +3,11 @@
 import Question from "@/database/question.model";
 import { connectToDatabase } from "./mongoose";
 import Tag from "@/database/tag.model";
-import { GetQuestionParms, createQuestionParams } from "./shared/shared.types";
+import {
+  GetQuestionByIdParams,
+  GetQuestionParms,
+  createQuestionParams,
+} from "./shared/shared.types";
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 
@@ -14,7 +18,6 @@ export async function getQuestion(params: GetQuestionParms) {
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
       .sort({ createdAt: -1 });
-    console.log("question in back ", questions);
     return { questions };
   } catch (error) {
     console.log(error);
@@ -45,12 +48,28 @@ export async function createQuestion(params: createQuestionParams) {
     }
 
     await Question.findByIdAndUpdate(question._id, {
-      $push: { tags: { $each: tagDocument } }
+      $push: { tags: { $each: tagDocument } },
     });
 
-    revalidatePath(path)
-    
+    revalidatePath(path);
   } catch (err) {
     console.log("err", err);
+  }
+}
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    connectToDatabase();
+    const { questionId } = params;
+
+    const question = await Question.findById(questionId)
+      .populate({ path: "tags", model: Tag, select: "_id name" })
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id clerkId name picture",
+      });
+    return question;
+  } catch (error) {
+    console.log(error);
   }
 }

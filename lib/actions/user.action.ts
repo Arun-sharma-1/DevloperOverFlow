@@ -5,6 +5,7 @@ import { connectToDatabase } from "./mongoose";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
   UpdateUserParams,
 } from "./shared/shared.types";
 import { revalidatePath } from "next/cache";
@@ -64,11 +65,22 @@ export async function deletedUser(params: DeleteUserParams) {
     //delete user ques
     await Question.deleteMany({ author: user._id });
 
-    //TOdO:delete user answers  , comments 
+    //TOdO:delete user answers  , comments
 
     const deletedUser = await User.findByIdAndDelete(user._id);
     return deletedUser;
   } catch (error) {
     console.log("error in deleting  user  ", error);
+  }
+}
+export async function getAllUsers(params: GetAllUsersParams) {
+  try {
+    connectToDatabase();
+    const { page = 1, pageSize = 20, filter, searchQuery } = params;
+    const allUsers = await User.find({}).sort({ createdAt: -1 });
+    // console.log("all users at server action ", allUsers);
+    return {allUsers};
+  } catch (error) {
+    console.log("error in fetching users ", error);
   }
 }

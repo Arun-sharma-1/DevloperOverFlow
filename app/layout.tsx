@@ -3,7 +3,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import type { Metadata } from "next";
 import { FaStackOverflow } from "react-icons/fa";
 import { ThemeProvider } from "@/context/ThemeProvider";
-
+import "./globals.css";
+import "../styles/prism.css"; 
 export const metadata: Metadata = {
   title: "DevFlow",
   description:

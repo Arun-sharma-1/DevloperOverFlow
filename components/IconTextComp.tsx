@@ -18,7 +18,7 @@ const IconTextComp = ({
   href,
   isAuthor,
 }: props) => {
-  console.log("value is  ", value);
+ 
   return (
     <>
       {href && (
