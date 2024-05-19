@@ -4,7 +4,7 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, deletedUser, updateUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
